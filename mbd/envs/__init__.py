@@ -8,9 +8,11 @@ from .humanoidrun import HumanoidRun
 from .walker2d import Walker2d
 from .cartpole import Cartpole
 from .car2d import Car2d
+from mbd.envs.bouncing_ball import BouncingBall
 
 
-def get_env(env_name: str):
+def get_env(env_name: str) -> env.Env:
+    """Returns an environment from a string name."""
     if env_name == "pushT":
         return PushT()
     elif env_name == "hopper":
@@ -27,6 +29,8 @@ def get_env(env_name: str):
         return Cartpole()
     elif env_name == "car2d":
         return Car2d()
+    elif env_name == "bouncing_ball":
+        return BouncingBall()
     elif env_name in ["ant", "halfcheetah"]:
         return brax_envs.get_environment(env_name=env_name, backend="positional")
     else:

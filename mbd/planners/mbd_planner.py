@@ -148,9 +148,11 @@ def run_diffusion(args: Args):
         return jnp.array(Ybars)
 
     rng_exp, rng = jax.random.split(rng)
+    print(f"args: {args.not_render}")
     Yi = reverse(YN, rng_exp)
     if not args.not_render:
         path = f"{mbd.__path__[0]}/../results/{args.env_name}"
+        
         if not os.path.exists(path):
             os.makedirs(path)
         jnp.save(f"{path}/mu_0ts.npy", Yi)

@@ -86,12 +86,14 @@ def main():
         act = jax.random.uniform(rng_act, (env.action_size,), minval=-1.0, maxval=1.0)
         state = env_step(state, act)
         rollout.append(state.pipeline_state)
-    webpage = html.render(env.sys.replace(dt=env.dt), rollout)
+    webpage = html.render(env.sys.tree_replace({"opt.timestep": env.dt}), rollout)
     path = f"{mbd.__path__[0]}/../results/pushT"
     if not os.path.exists(path):
         os.makedirs(path)
-    with open(f"{path}/vis.html", "w") as f:
+    html_path = f"{path}/vis.html"
+    with open(html_path, "w") as f:
         f.write(webpage)
+    
 
 
 if __name__ == "__main__":
